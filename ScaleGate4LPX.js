@@ -5,8 +5,6 @@
  // Copyright codecave / LogicScripts 2017.
  //________________________________________
  //
-
-
  var rootSelect = ["C/Am", "C#/Bbm", "D/Bm", "D#/Cm", "E/C#m", "F/Dm", "F#/D#m", "G/Em", "G#/Fm", "A/F#m", "Bb/Gm", "B/G#m"],
      debug = false;
 
@@ -65,7 +63,6 @@
      });
      var origList = legitNotes.slice(0);
      for (var i = 12; i <= 127; i += 12) {
-
          legitNotes = legitNotes.concat(origList.map(function(c) {
              if (c + i > 127) {
                  return;
