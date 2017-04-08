@@ -1,7 +1,7 @@
  // _______________________________________
- // ScaleGate4LPX v1.0
+ // ScaleGate4LPX v1.1
  //________________________________________
- // Created by Attila Enhardt on 2017-04-05
+ // Created by Attila Enhardt on 2017-04-08
  // Copyright codecave / LogicScripts 2017.
  //________________________________________
  //
@@ -46,32 +46,15 @@
      this.setRoot = function(r) {
          this.root = new Root(r);
      };
-     this.checkNote = function(note) {
-         return this.root.notes.indexOf(note.pitch) >= 0;
-     }
+     this.checkNote = (note) => this.root.notes.indexOf(note.pitch) >= 0;
  }
 
  function Root(r) {
-     var legitNotes = [];
-     [0, 2, 4, 5, 7, 9, 11].forEach(function(n) {
-         if (n + r - 12 > -1) {
-             legitNotes.push(n + r - 12);
-         } else {
-             legitNotes.push(n + r)
-         }
-     });
-     legitNotes.sort(function(a, b) {
-         return a - b
-     });
-     var origList = legitNotes.slice(0);
+     isMidi = (v) => v >= 0 && v <= 127;
+     this.notes = [0, 2, 4, 5, 7, 9, 11].map((n) => n + r - 12 > -1 ? n + r - 12 : n + r)
+         .sort((a, b) => a - b);
+     var origList = this.notes.slice(0);
      for (var i = 12; i <= 127; i += 12) {
-
-         legitNotes = legitNotes.concat(origList.map(function(c) {
-             if (c + i > 127) {
-                 return;
-             };
-             return c + i;
-         }))
+         this.notes = this.notes.concat(origList.map((c) => c + i).filter(isMidi));
      }
-     this.notes = legitNotes.filter(Number);
  }
