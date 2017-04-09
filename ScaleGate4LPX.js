@@ -20,6 +20,8 @@ function HandleMIDI(e) {
         if (gate.checkNote(e)) {
             e.send();
         }
+    } else {
+        e.send();
     }
 }
 
@@ -43,7 +45,7 @@ function ParameterChanged(p, v) {
 
 function ScaleGate(root) {
     this.root = new Root(root);
-    this.setRoot = function(r) {
+    this.setRoot = function (r) {
         this.root = new Root(r);
     };
     this.checkNote = (note) => this.root.notes.indexOf(note.pitch) >= 0;
